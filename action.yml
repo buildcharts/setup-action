@@ -1,0 +1,17 @@
+name: Set up BuildCharts
+description: Set up BuildCharts
+branding:
+  icon: 'pie-chart'
+  color: 'yellow'
+runs:
+  using: composite
+  steps:
+    - name: Set up BuildCharts
+      uses: pyTooling/Actions/with-post-step@r0
+      with:
+        main: |
+          echo "Pulling BuildCharts image..."
+          docker pull buildcharts/buildcharts:latest
+        post: |
+          echo "Removing BuildCharts image..."
+          docker image rm buildcharts/buildcharts:latest || true
