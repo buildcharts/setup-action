@@ -1,0 +1,19 @@
+name: Set up BuildCharts
+description: Set up BuildCharts
+branding:
+  icon: 'pie-chart'
+  color: 'yellow'
+runs:
+  using: composite
+  steps:
+    - name: Set up BuildCharts
+      shell: bash
+      run: |
+
+        echo "::group::buildcharts install CLI"
+        dotnet tool install --global dotnet-buildcharts --version 1.0.0-rc1-beta.243
+        echo "::endgroup::"
+
+        echo "::group::buildcharts version"
+        buildcharts version
+        echo "::endgroup::"
