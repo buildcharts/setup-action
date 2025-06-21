@@ -1,0 +1,28 @@
+name: Setup BuildCharts 
+description: Pulls and prepares BuildCharts Docker image
+branding:
+  icon: 'pie-chart'
+  color: 'yellow'
+runs:
+  using: composite
+  steps:
+    - name: Setup BuildCharts
+      uses: pyTooling/Actions/with-post-step@r0
+      with:
+        main: |
+          echo "Pulling BuildCharts image..."
+          docker pull buildcharts/buildcharts:latest
+        post: |
+          echo "Removing BuildCharts image..."
+          docker image rm buildcharts/buildcharts:latest || true
+
+          if ! command -v gh >/dev/null; then
+            echo "gh CLI not installed, skipping artifact download and summary generation."
+            exit 0  # Or just leave it as is in a post step, which will end the script
+          fi
+          
+          cat "$GITHUB_ACTION_PATH/summary.md" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            bash "$GITHUB_ACTION_PATH/scripts/generate-summary.sh" || true
+          fi
