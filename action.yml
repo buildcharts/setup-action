@@ -1,12 +1,9 @@
-name: Setup BuildCharts 
+name: Setup BuildCharts
 description: Pulls and prepares BuildCharts Docker image
 branding:
   icon: 'pie-chart'
   color: 'yellow'
 runs:
-  using: composite
-  steps:
-    - name: Pull buildcharts image
-      shell: bash
-      run: |
-        docker pull buildcharts/buildcharts:latest
+  using: node20
+  main: dist/main.js
+  post: dist/post.js

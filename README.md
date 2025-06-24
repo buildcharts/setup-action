@@ -2,7 +2,8 @@
 
 GitHub Action to set up [BuildCharts](https://github.com/eddietisma/buildcharts).
 
-This action pulls the `buildcharts` Docker image that can be used in the following steps of your workflow.
+The action pulls the `buildcharts` Docker image for use in later workflow steps
+and removes it when the job finishes.
 
 ## Usage
 
